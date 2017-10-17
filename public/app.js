@@ -6,22 +6,38 @@ var init = function () {
   populate(todosArray);
 }
 
-var populate = function (todos) {
-  for (todo of todos) {
+// var populate = function (todos) {
+//   for (todo of todos) {
+//     addItem(todo);
+//   }
+// }
+
+var populate = function() {
+  var selectItem = document.querySelector("#dropdown");
+  var selectOption = selectItem.options[selectItem.selectedIndex].value;
+  var todoLists = document.getElementsByClassName("option");
+  var todoListToDisplay = null;
+  for (todoList in todoLists) {
+    if(Object.keys(todoList)[0] === selectOption) {
+      todoListToDisplay = todoList;
+    }
+  }
+  for (todo of todoListToDisplay[1]) {
     addItem(todo);
   }
-  // this function needs to:
-  // - loop through the array of todos, invoking addItem() for each todo item
 }
 
+
+
 var addItem = function (item) {
-  var ul = document.querySelector('#todo-list');
+  var selectItem = document.querySelector("#dropdown")
+  var selectOption = selectItem.value;
+
+
+  var ul = document.querySelector("#"+selectOption);
   var li = document.createElement("li");
   li.innerText = item.value;
   ul.appendChild(li);
-  // this function needs to:
-  // - create an li element containing the string 'item'
-  // - append the li to the "todo-list" ul
 }
 
 var handleButtonClick = function () {
